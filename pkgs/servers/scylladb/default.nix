@@ -1,8 +1,8 @@
 {
-  lib, stdenv,
+  lib,
   fetchgit,
   python3Packages,
-  pkgconfig,
+  pkg-config,
   gcc8Stdenv,
   boost,
   git,
@@ -44,7 +44,7 @@ gcc8Stdenv.mkDerivation {
   patches = [ ./seastar-configure-script-paths.patch ./configure-etc-osrelease.patch ];
 
   nativeBuildInputs = [
-   pkgconfig
+   pkg-config
    cmake
    makeWrapper
    ninja
@@ -98,5 +98,6 @@ gcc8Stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     hydraPlatforms = []; # It's huge ATM, about 18 GB.
     maintainers = [ lib.maintainers.farlion ];
+    broken = true;
   };
 }

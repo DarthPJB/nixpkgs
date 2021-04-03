@@ -1,7 +1,7 @@
 { lib, stdenv
 , fetchFromGitHub
 , autoreconfHook
-, pkgconfig
+, pkg-config
 , rofi-unwrapped
 , libqalculate
 , glib
@@ -12,18 +12,18 @@
 
 stdenv.mkDerivation rec {
   pname = "rofi-calc";
-  version = "1.9";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "svenstaro";
     repo = pname;
     rev = "v${version}";
-    sha256 = "ZGY4ZtAG/ZnEnC80modZBV4RdRQElbkjeoKCEFVrncE=";
+    sha256 = "NbWXMash0pK7Y9gOEBbL7zXjFytoeZBN9/wIbRTvQ8g=";
   };
 
   nativeBuildInputs = [
     autoreconfHook
-    pkgconfig
+    pkg-config
     gobject-introspection
     wrapGAppsHook
   ];

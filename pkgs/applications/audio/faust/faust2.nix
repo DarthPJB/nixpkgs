@@ -2,7 +2,7 @@
 , coreutils
 , fetchFromGitHub
 , makeWrapper
-, pkgconfig
+, pkg-config
 , cmake
 , llvm
 , emscripten
@@ -45,7 +45,7 @@ let
 
     inherit src;
 
-    nativeBuildInputs = [ makeWrapper pkgconfig cmake vim which ];
+    nativeBuildInputs = [ makeWrapper pkg-config cmake vim which ];
     buildInputs = [ llvm emscripten openssl libsndfile libmicrohttpd gnutls libtasn1 p11-kit ];
 
 
@@ -168,8 +168,7 @@ let
 
     stdenv.mkDerivation ((faust2ApplBase args) // {
 
-      nativeBuildInputs = [ pkgconfig ];
-      buildInputs = [ makeWrapper ];
+      nativeBuildInputs = [ pkg-config makeWrapper ];
 
       propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
 
@@ -209,7 +208,7 @@ let
 
     in stdenv.mkDerivation ((faust2ApplBase args) // {
 
-      buildInputs = [ makeWrapper ];
+      nativeBuildInputs = [ makeWrapper ];
 
       postFixup = ''
         for script in "$out"/bin/*; do

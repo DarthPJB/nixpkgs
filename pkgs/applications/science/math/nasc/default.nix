@@ -1,6 +1,6 @@
 { lib, stdenv
 , fetchFromGitHub
-, pkgconfig
+, pkg-config
 , fetchpatch
 , python3
 , meson
@@ -9,7 +9,6 @@
 , gtk3
 , glib
 , pantheon
-, libsoup
 , gtksourceview
 , libgee
 , nix-update-script
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     intltool # for libqalculate
     meson
     ninja
-    pkgconfig
+    pkg-config
     python3
     vala
     wrapGAppsHook

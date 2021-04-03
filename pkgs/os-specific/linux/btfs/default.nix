@@ -1,18 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config
 , python3, boost, fuse, libtorrent-rasterbar, curl }:
 
 stdenv.mkDerivation rec {
   pname = "btfs";
-  version = "2.23";
+  version = "2.24";
 
   src = fetchFromGitHub {
     owner  = "johang";
     repo   = pname;
     rev    = "v${version}";
-    sha256 = "1cfjhyn9cjyyxyd0f08b2ra258pzkljwvkj0iwrjpd0nrbl6wkq5";
+    sha256 = "sha256-fkS0U/MqFRQNi+n7NE4e1cnNICvfST2IQ9FMoJUyj6w=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [
     boost fuse libtorrent-rasterbar curl python3
   ];

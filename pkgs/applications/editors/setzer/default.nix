@@ -18,13 +18,13 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "setzer";
-  version = "0.3.9";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "cvfosammmm";
     repo = "Setzer";
     rev = "v${version}";
-    sha256 = "1qmy2bxl8x6pijjaaj91v6rqdipha6iyy0b6b9y1lk3r2p3azd42";
+    sha256 = "1rcx2c07jg1ij81pnvg3px49hfbjmkagn68d3gp79z3gcajbp2av";
   };
 
   format = "other";
@@ -51,8 +51,13 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
     pyxdg
-    pypdf2
+    pdfminer
+    pycairo
   ];
+
+  checkPhase = ''
+    meson test --print-errorlogs
+  '';
 
   meta = with lib; {
     description = "LaTeX editor written in Python with Gtk";

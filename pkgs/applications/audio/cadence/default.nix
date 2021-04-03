@@ -1,12 +1,11 @@
-{ stdenv
+{ lib
 , a2jmidid
 , coreutils
-, lib
 , libjack2
 , fetchpatch
 , fetchzip
 , jack_capture
-, pkgconfig
+, pkg-config
 , pulseaudioFull
 , qtbase
 , makeWrapper
@@ -48,7 +47,7 @@ mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = [

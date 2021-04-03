@@ -17,13 +17,12 @@
 , hicolor-icon-theme
 , intltool
 , ladspaH
-, libav
 , libjack2
 , libsndfile
 , lilv
 , lrdf
 , lv2
-, pkgconfig
+, pkg-config
 , python2
 , sassc
 , serd
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     gettext
     hicolor-icon-theme
     intltool
-    pkgconfig
+    pkg-config
     python2
     wafHook
     wrapGAppsHook
@@ -74,7 +73,6 @@ stdenv.mkDerivation rec {
     gtk3
     gtkmm3
     ladspaH
-    libav
     libjack2
     libsndfile
     lilv

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, mecab, kytea, libedit, pkgconfig
+{ lib, stdenv, fetchurl, mecab, kytea, libedit, pkg-config
 , suggestSupport ? false, zeromq, libevent, msgpack
 , lz4Support  ? false, lz4
 , zlibSupport ? false, zlib
@@ -7,15 +7,15 @@
 stdenv.mkDerivation rec {
 
   pname = "groonga";
-  version = "10.0.9";
+  version = "11.0.0";
 
   src = fetchurl {
     url    = "https://packages.groonga.org/source/groonga/${pname}-${version}.tar.gz";
-    sha256 = "191saqanv8k6ijl96mw4jdhh9pkpdn651f1bg4kfb34p7vy8ld9k";
+    sha256 = "sha256-kgQAFa4Orvfms/trjaMrXULYy7nV+nsmLPpyZAq3cDY=";
   };
 
   buildInputs = with lib;
-     [ pkgconfig mecab kytea libedit ]
+     [ pkg-config mecab kytea libedit ]
     ++ optional lz4Support lz4
     ++ optional zlibSupport zlib
     ++ optionals suggestSupport [ zeromq libevent msgpack ];

@@ -1,5 +1,5 @@
-{ config, lib, stdenv, fetchFromGitHub, runCommand, ncurses, pkgconfig
-, libiconv, CoreAudio
+{ config, lib, stdenv, fetchFromGitHub, runCommand, ncurses, pkg-config
+, libiconv, CoreAudio, AudioUnit
 
 , alsaSupport ? stdenv.isLinux, alsaLib ? null
 # simple fallback for everyone else
@@ -102,13 +102,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "cmus";
-  version = "2.8.0";
+  version = "2.9.1";
 
   src = fetchFromGitHub {
     owner  = "cmus";
     repo   = "cmus";
     rev    = "v${version}";
-    sha256 = "1ydnvq13ay8b8mfmmgwi5qsgyf220yi1d01acbnxqn775dghmwar";
+    sha256 = "sha256-HEiEnEWf/MzhPO19VKTLYzhylpEvyzy1Jxs6EW2NU34=";
   };
 
   patches = [ ./option-debugging.patch ];
@@ -118,10 +118,10 @@ stdenv.mkDerivation rec {
     "CONFIG_WAV=y"
   ] ++ concatMap (a: a.flags) opts);
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses ]
     ++ lib.optional stdenv.cc.isClang clangGCC
-    ++ lib.optionals stdenv.isDarwin [ libiconv CoreAudio ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv CoreAudio AudioUnit ]
     ++ flatten (concatMap (a: a.deps) opts);
 
   makeFlags = [ "LD=$(CC)" ];

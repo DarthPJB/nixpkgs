@@ -1,25 +1,43 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
+{ lib, buildGoModule, fetchFromGitHub, fetchzip, installShellFiles }:
+
+let
+  version = "0.11.0";
+
+  manifests = fetchzip {
+    url = "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
+    sha256 = "sha256-nqvFJriNMK3SvAsNzhE8MCzVNR8j/TjYU+f1PbuxkuI=";
+    stripRoot = false;
+  };
+in
 
 buildGoModule rec {
+  inherit version;
+
   pname = "fluxcd";
-  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "fluxcd";
     repo = "flux2";
     rev = "v${version}";
-    sha256 = "16jq6ygm7and4fixh8f7jjv45vgjmyy8wghwnkhwb0140j6lj3ym";
+    sha256 = "sha256-V4cZuRlC1Hu4gBG5/8ZNBKlSBFLgOtSJ3GbpjW5/8xM=";
   };
 
-  vendorSha256 = "1909czaa0q03xh1qvg3f2qzwfwlqyc0akg2c98wd7qrnk1yzzdxy";
+  vendorSha256 = "sha256-aVVvrOjCKxzFer5uZRSu1LCQKkGkPcBdKdebN5uHUUg=";
 
   nativeBuildInputs = [ installShellFiles ];
-
-  doCheck = false;
 
   subPackages = [ "cmd/flux" ];
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.VERSION=${version}" ];
+
+  postUnpack = ''
+    cp -r ${manifests} source/cmd/flux/manifests
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    $out/bin/flux --version | grep ${version} > /dev/null
+  '';
 
   postInstall = ''
     for shell in bash fish zsh; do

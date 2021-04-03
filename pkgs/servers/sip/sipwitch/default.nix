@@ -1,4 +1,4 @@
-{ fetchurl, lib, stdenv, pkgconfig, ucommon, libosip, libexosip, gnutls, zlib }:
+{ fetchurl, lib, stdenv, pkg-config, ucommon, libosip, libexosip, gnutls, zlib }:
 
 stdenv.mkDerivation rec {
   name = "sipwitch-1.9.15";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "2a7aa86a653f6810b3cd9cce6c37b3f70e937e7d14b09fd5c2a70d70588a9482";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ucommon libosip libexosip gnutls zlib ];
 
   preConfigure = ''
@@ -23,5 +23,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ];
     platforms = with lib.platforms; linux;
+    broken = true; # Require libexosip2 < 5.0.0 which is vulnerable to CVE-2014-10375.
   };
 }

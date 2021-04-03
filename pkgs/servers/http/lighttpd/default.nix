@@ -1,4 +1,4 @@
-{ lib, stdenv, buildPackages, fetchurl, pkgconfig, pcre, libxml2, zlib, bzip2, which, file
+{ lib, stdenv, buildPackages, fetchurl, pkg-config, pcre, libxml2, zlib, bzip2, which, file
 , openssl, enableMagnet ? false, lua5_1 ? null
 , enableMysql ? false, libmysqlclient ? null
 , enableLdap ? false, openldap ? null
@@ -15,11 +15,11 @@ assert enableWebDAV -> libuuid != null;
 assert enableExtendedAttrs -> attr != null;
 
 stdenv.mkDerivation rec {
-  name = "lighttpd-1.4.56";
+  name = "lighttpd-1.4.59";
 
   src = fetchurl {
     url = "https://download.lighttpd.net/lighttpd/releases-1.4.x/${name}.tar.xz";
-    sha256 = "0xyzahrkmldwskwgjgj4dc3rmfmgqiwwr9y7jfhqpbp8g76q9kp4";
+    sha256 = "sha256-+5U9snPa7wjttuICVWyuij0H7tYIHJa9mQPblX0QhNU=";
   };
 
   postPatch = ''
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ pcre pcre.dev libxml2 zlib bzip2 which file openssl ]
              ++ lib.optional enableMagnet lua5_1
              ++ lib.optional enableMysql libmysqlclient

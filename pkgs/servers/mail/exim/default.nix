@@ -1,4 +1,4 @@
-{ coreutils, db, fetchurl, openssl, pcre, perl, pkgconfig, lib, stdenv
+{ coreutils, db, fetchurl, openssl, pcre, perl, pkg-config, lib, stdenv
 , enableLDAP ? false, openldap
 , enableMySQL ? false, libmysqlclient, zlib
 , enableAuthDovecot ? false, dovecot
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1nsb2i5mqxfz1sl1bmbxmpb2qiaf3wffhfiw4j9vfpagy3xfhzpp";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ coreutils db openssl perl pcre ]
     ++ lib.optional enableLDAP openldap
     ++ lib.optionals enableMySQL [ libmysqlclient zlib ]
@@ -100,10 +100,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "http://exim.org/";
+    homepage = "https://exim.org/";
     description = "A mail transfer agent (MTA)";
     license = with licenses; [ gpl2Plus bsd3 ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ tv ajs124 das_j ];
+    changelog = "https://github.com/Exim/exim/blob/exim-${version}/doc/doc-txt/ChangeLog";
   };
 }

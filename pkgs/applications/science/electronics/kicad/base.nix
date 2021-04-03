@@ -1,5 +1,5 @@
-{ lib, stdenv
-, fetchFromGitLab
+{ lib
+, stdenv
 , cmake
 , libGLU
 , libGL
@@ -13,14 +13,12 @@
 , curl
 , openssl
 , boost
-, pkgconfig
+, pkg-config
 , doxygen
 , pcre
 , libpthreadstubs
 , libXdmcp
-, fetchpatch
 , lndir
-, callPackage
 
 , stable
 , baseName
@@ -94,7 +92,7 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  nativeBuildInputs = [ cmake doxygen pkgconfig lndir ];
+  nativeBuildInputs = [ cmake doxygen pkg-config lndir ];
 
   buildInputs = [
     libGLU

@@ -1,5 +1,5 @@
 { lib, stdenv, fetchgit, dconf, gtksourceview3, at-spi2-core, gtksourceviewmm,
-  boost, epoxy, cmake, aspell, llvmPackages, libgit2, pkgconfig, pcre,
+  boost, epoxy, cmake, aspell, llvmPackages, libgit2, pkg-config, pcre,
   libXdmcp, libxkbcommon, libpthreadstubs, wrapGAppsHook, aspellDicts, gtkmm3,
   coreutils, glibc, dbus, openssl, libxml2, gnumake, ctags }:
 
@@ -15,6 +15,9 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ xnwdd ];
+    # error: token ""1.1"" is not valid in preprocessor expression
+    # TODO: fix pname being different from the attribute name
+    broken = true;
   };
 
   src = fetchgit {
@@ -24,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xp6ijnrggskjrvscp204bmdpz48l5a8nxr9abp17wni6akb5wiq";
   };
 
-  nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = [
     dbus
     openssl

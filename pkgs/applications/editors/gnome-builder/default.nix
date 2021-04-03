@@ -25,7 +25,7 @@
 , ostree
 , pcre
 , pcre2
-, pkgconfig
+, pkg-config
 , python3
 , sysprof
 , template-glib
@@ -35,16 +35,15 @@
 , wrapGAppsHook
 , dbus
 , xvfb_run
-, glib
 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-builder";
-  version = "3.38.1";
+  version = "3.38.2";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "06wcyfrwcjyj2vcqyw0z3sy1r4qxpcdpwqq1qmpsaphpz8acycjn";
+    sha256 = "jFNco64yoZC1TZbTIHGVf+wBYYQHo2JRiMZFHngzYTs=";
   };
 
   nativeBuildInputs = [
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     gtk-doc
     meson
     ninja
-    pkgconfig
+    pkg-config
     python3
     python3.pkgs.wrapPython
     wrapGAppsHook

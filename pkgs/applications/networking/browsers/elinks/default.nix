@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, ncurses, xlibsWrapper, bzip2, zlib
-, brotli, zstd, lzma, openssl, autoreconfHook, gettext, pkgconfig, libev
+, brotli, zstd, lzma, openssl, autoreconfHook, gettext, pkg-config, libev
 , gpm, libidn, tre, expat
 , # Incompatible licenses, LGPLv3 - GPLv2
   enableGuile        ? false,                                         guile ? null
@@ -13,13 +13,13 @@ assert enablePython -> python != null;
 
 stdenv.mkDerivation rec {
   pname = "elinks";
-  version = "0.13.5";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "rkd77";
     repo = "felinks";
     rev = "v${version}";
-    sha256 = "067l9m47j40039q8mvvnxd1amwrac3x6vv0c0svimfpvj4ammgkg";
+    sha256 = "sha256-LxJJ0yBlw9hJ/agyL9dbVe4STKdXE8rtk1mMFqe1fFI=";
   };
 
   buildInputs = [
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enablePerl perl
     ;
 
-  nativeBuildInputs = [ autoreconfHook gettext pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook gettext pkg-config ];
 
   configureFlags = [
     "--enable-finger"

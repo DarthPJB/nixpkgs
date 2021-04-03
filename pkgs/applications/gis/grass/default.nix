@@ -1,9 +1,7 @@
-{ stdenv, fetchFromGitHub, flex, bison, pkgconfig, zlib, libtiff, libpng, fftw
+{ lib, stdenv, fetchFromGitHub, flex, bison, pkg-config, zlib, libtiff, libpng, fftw
 , cairo, readline, ffmpeg_3, makeWrapper, wxGTK30, netcdf, blas
 , proj, gdal, geos, sqlite, postgresql, libmysqlclient, python2Packages, libLAS, proj-datumgrid
 }:
-
-let inherit (stdenv) lib; in
 
 stdenv.mkDerivation rec {
   name = "grass";
@@ -16,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1amjk9rz7vw5ha7nyl5j2bfwj5if9w62nlwx5qbp1x7spldimlll";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ flex bison zlib proj gdal libtiff libpng fftw sqlite cairo proj
   readline ffmpeg_3 makeWrapper wxGTK30 netcdf geos postgresql libmysqlclient blas
   libLAS proj-datumgrid ]

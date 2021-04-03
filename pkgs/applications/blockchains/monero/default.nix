@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch
-, cmake, pkgconfig
+, cmake, pkg-config
 , boost, miniupnpc, openssl, unbound
 , zeromq, pcsclite, readline, libsodium, hidapi
 , randomx, rapidjson
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     cp -r . $source
   '';
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     boost miniupnpc openssl unbound
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage    = "https://getmonero.org/";
     license     = licenses.bsd3;
     platforms   = platforms.all;
-    maintainers = with maintainers; [ ehmry rnhmjoj ];
+    maintainers = with maintainers; [ rnhmjoj ];
   };
 }

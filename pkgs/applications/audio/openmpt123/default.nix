@@ -1,21 +1,21 @@
-{ config, lib, stdenv, fetchurl, zlib, pkgconfig, mpg123, libogg, libvorbis, portaudio, libsndfile, flac
+{ config, lib, stdenv, fetchurl, zlib, pkg-config, mpg123, libogg, libvorbis, portaudio, libsndfile, flac
 , usePulseAudio ? config.pulseaudio or false, libpulseaudio }:
 
 let
-  version = "0.5.4";
+  version = "0.5.6";
 in stdenv.mkDerivation {
   pname = "openmpt123";
   inherit version;
 
   src = fetchurl {
     url = "https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-${version}+release.autotools.tar.gz";
-    sha256 = "0h7gpjx1221jwsq3k91p8zhf1h77qaxyasakc88s3g57vawhckgk";
+    sha256 = "sha256-F96ngrM0wUb0rNlIx8Mf/dKvyJnrNH6+Ab4WBup59Lg=";
   };
 
   enableParallelBuilding = true;
   doCheck = true;
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ zlib mpg123 libogg libvorbis portaudio libsndfile flac ]
   ++ lib.optional usePulseAudio libpulseaudio;
 

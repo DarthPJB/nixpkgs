@@ -1,9 +1,9 @@
-{ lib, stdenv
+{ lib
 , mkDerivation
 , fetchFromGitHub
 , fetchpatch
 , cmake
-, pkgconfig
+, pkg-config
 
 , qtbase
 , qttools
@@ -32,7 +32,7 @@ mkDerivation rec {
   '';
 
   nativeBuildInputs = [cmake
-                       pkgconfig];
+                       pkg-config];
 
   buildInputs = [qtbase
                  qttools

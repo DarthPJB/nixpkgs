@@ -1,15 +1,15 @@
-{ lib, stdenv, fetchurl, glib, gtk3, gperf, pkgconfig, bzip2, tcl, tk, wrapGAppsHook, judy, xz }:
+{ lib, stdenv, fetchurl, glib, gtk3, gperf, pkg-config, bzip2, tcl, tk, wrapGAppsHook, judy, xz }:
 
 stdenv.mkDerivation rec {
   pname = "gtkwave";
-  version = "3.3.107";
+  version = "3.3.108";
 
   src = fetchurl {
     url    = "mirror://sourceforge/gtkwave/${pname}-gtk3-${version}.tar.gz";
-    sha256 = "0ma30jyc94iid3v3m8aw4i2lyiqfxkpsdvdmmaibynk400cbzivl";
+    sha256 = "sha256-LtlexZKih+Si/pH3oQpWdpzfZ6j+41Otgfx7nLMfFSQ=";
   };
 
-  nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = [ glib gtk3 gperf bzip2 tcl tk judy xz ];
 
   configureFlags = [

@@ -1,27 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, rustPackages_1_45, pkgconfig, openssl
-, withALSA ? true, alsaLib ? null
-, withPulseAudio ? false, libpulseaudio ? null
-, withPortAudio ? false, portaudio ? null
+{ lib, fetchFromGitHub, rustPackages, pkg-config, openssl
+, withALSA ? true, alsaLib
+, withPulseAudio ? false, libpulseaudio
+, withPortAudio ? false, portaudio
 , withMpris ? false
 , withKeyring ? false
-, dbus ? null
+, dbus
 }:
 
-# rust >= 1.48 causes a panic within spotifyd on music playback. as long as
-# there is no upstream fix for the issue we use an older version of rust.
-# Upstream issue: https://github.com/Spotifyd/spotifyd/issues/719
-rustPackages_1_45.rustPlatform.buildRustPackage rec {
+rustPackages.rustPlatform.buildRustPackage rec {
   pname = "spotifyd";
-  version = "0.2.24";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "Spotifyd";
     repo = "spotifyd";
     rev = "v${version}";
-    sha256 = "08i0zm7kgprixqjpgaxk7xid1njgj6lmi896jf9fsjqzdzlblqk8";
+    sha256 = "1a578h13iv8gqmskzlncfr42jlg5gp0zfcizv4wbd48y9hl8fh2l";
   };
 
-  cargoSha256 = "0200apqbx769ggjnjr0m72g61ikhml2xak5n1il2pvfx1yf5nw0n";
+  cargoSha256 = "1sm5yfgjx5xfnqqh1v8ycwzxw4kl6dq5gcvsdnc4h1cj3pdhbpcc";
 
   cargoBuildFlags = [
     "--no-default-features"
@@ -29,7 +26,7 @@ rustPackages_1_45.rustPlatform.buildRustPackage rec {
     "${lib.optionalString withALSA "alsa_backend,"}${lib.optionalString withPulseAudio "pulseaudio_backend,"}${lib.optionalString withPortAudio "portaudio_backend,"}${lib.optionalString withMpris "dbus_mpris,"}${lib.optionalString withKeyring "dbus_keyring,"}"
   ];
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ openssl ]
     ++ lib.optional withALSA alsaLib
@@ -42,7 +39,8 @@ rustPackages_1_45.rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "An open source Spotify client running as a UNIX daemon";
     homepage = "https://github.com/Spotifyd/spotifyd";
-    license = with licenses; [ gpl3 ];
+    changelog = "https://github.com/Spotifyd/spotifyd/raw/v${version}/CHANGELOG.md";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ anderslundstedt Br1ght0ne marsam ];
     platforms = platforms.unix;
   };

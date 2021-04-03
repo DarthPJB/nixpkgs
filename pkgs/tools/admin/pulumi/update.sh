@@ -3,32 +3,32 @@
 
 # Version of Pulumi from
 # https://www.pulumi.com/docs/get-started/install/versions/
-VERSION="2.17.0"
+VERSION="2.23.2"
 
 # Grab latest release ${VERSION} from
 # https://github.com/pulumi/pulumi-${NAME}/releases
 plugins=(
-    "auth0=1.5.1"
-    "aws=3.23.0"
-    "cloudflare=2.11.0"
-    "consul=2.6.2"
-    "datadog=2.14.0"
-    "digitalocean=3.2.0"
-    "docker=2.6.0"
-    "gcp=4.6.1"
-    "github=2.4.1"
-    "gitlab=3.4.0"
-    "hcloud=0.4.1"
-    "kubernetes=2.7.5"
-    "mailgun=2.3.1"
-    "mysql=2.3.2"
-    "openstack=2.10.1"
+    "auth0=1.9.1"
+    "aws=3.34.2"
+    "cloudflare=2.14.2"
+    "consul=2.9.1"
+    "datadog=2.17.1"
+    "digitalocean=3.6.1"
+    "docker=2.9.1"
+    "gcp=4.17.0"
+    "github=3.3.1"
+    "gitlab=3.8.1"
+    "hcloud=0.7.1"
+    "kubernetes=2.8.3"
+    "mailgun=2.5.1"
+    "mysql=2.5.1"
+    "openstack=2.17.1"
     "packet=3.2.2"
-    "postgresql=2.5.2"
-    "random=3.0.0"
-    "vault=3.2.0"
-    "vsphere=2.11.3"
-    );
+    "postgresql=2.8.1"
+    "random=3.1.1"
+    "vault=3.5.1"
+    "vsphere=2.13.1"
+)
 
 function genMainSrc() {
     local url="https://get.pulumi.com/releases/sdk/pulumi-v${VERSION}-$1-x64.tar.gz"
@@ -56,7 +56,8 @@ function genSrcs() {
     done
 }
 
-cat <<EOF                     > data.nix
+{
+  cat <<EOF
 # DO NOT EDIT! This file is generated automatically by update.sh
 { }:
 {
@@ -64,14 +65,14 @@ cat <<EOF                     > data.nix
   pulumiPkgs = {
     x86_64-linux = [
 EOF
-genMainSrc "linux"           >> data.nix
-genSrcs "linux"              >> data.nix
-echo "    ];"                >> data.nix
+  genMainSrc "linux"
+  genSrcs "linux"
+  echo "    ];"
+  echo "    x86_64-darwin = ["
 
-echo "    x86_64-darwin = [" >> data.nix
-genMainSrc "darwin"          >> data.nix
-genSrcs "darwin"             >> data.nix
-echo "    ];"                >> data.nix
-echo "  };"                  >> data.nix
-echo "}"                     >> data.nix
-
+  genMainSrc "darwin"
+  genSrcs "darwin"
+  echo "    ];"
+  echo "  };"
+  echo "}"
+} > data.nix

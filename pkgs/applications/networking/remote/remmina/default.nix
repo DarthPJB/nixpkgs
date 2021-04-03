@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitLab, cmake, ninja, pkgconfig, wrapGAppsHook
+{ lib, stdenv, fetchFromGitLab, cmake, ninja, pkg-config, wrapGAppsHook
 , glib, gtk3, gettext, libxkbfile, libX11
 , freerdp, libssh, libgcrypt, gnutls
 , pcre2, libdbusmenu-gtk3, libappindicator-gtk3
@@ -13,16 +13,16 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "remmina";
-  version = "1.4.10";
+  version = "1.4.12";
 
   src = fetchFromGitLab {
     owner  = "Remmina";
     repo   = "Remmina";
     rev    = "v${version}";
-    sha256 = "sha256-n3YfLKCv6CoBeUIv+1yN6RIih63PTFj5zr+dZDJwYdw=";
+    sha256 = "sha256-CjlNEmca4Kob5rdpZa+YfvdOIDDDYfhNsGYqGDxSGKY=";
   };
 
-  nativeBuildInputs = [ cmake ninja pkgconfig wrapGAppsHook ];
+  nativeBuildInputs = [ cmake ninja pkg-config wrapGAppsHook ];
   buildInputs = [
     gsettings-desktop-schemas
     glib gtk3 gettext libxkbfile libX11

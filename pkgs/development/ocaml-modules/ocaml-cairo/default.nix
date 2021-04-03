@@ -1,4 +1,4 @@
-{stdenv, lib, fetchurl, automake, ocaml, autoconf, gnum4, pkgconfig, freetype, lablgtk, unzip, cairo, findlib, gdk-pixbuf, gtk2, pango }:
+{stdenv, lib, fetchurl, automake, ocaml, autoconf, gnum4, pkg-config, freetype, lablgtk, unzip, cairo, findlib, gdk-pixbuf, gtk2, pango }:
 
 let
   pname = "ocaml-cairo";
@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./META.patch ];
 
-  nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ ocaml automake gnum4 autoconf unzip
+  nativeBuildInputs = [ pkg-config unzip ];
+  buildInputs = [ ocaml automake gnum4 autoconf
                   findlib freetype lablgtk cairo gdk-pixbuf gtk2 pango ];
 
   createFindlibDestdir = true;

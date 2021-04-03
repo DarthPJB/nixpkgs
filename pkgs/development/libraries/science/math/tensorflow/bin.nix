@@ -1,10 +1,10 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , addOpenGLRunpath
 , cudaSupport ? false, symlinkJoin, cudatoolkit, cudnn, nvidia_x11
 }:
 
-with stdenv.lib;
+with lib;
 let
   broken = !stdenv.isLinux && !stdenv.isDarwin;
 
@@ -50,7 +50,7 @@ in stdenv.mkDerivation rec {
     chmod -R +w $out
     ${patchLibs}
 
-    # Write pkgconfig file.
+    # Write pkg-config file.
     mkdir $out/lib/pkgconfig
     cat > $out/lib/pkgconfig/tensorflow.pc << EOF
     Name: TensorFlow

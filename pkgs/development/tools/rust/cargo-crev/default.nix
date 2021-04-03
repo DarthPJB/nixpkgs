@@ -11,20 +11,20 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-crev";
-  version = "0.18.0";
+  version = "0.19.1";
 
   src = fetchFromGitHub {
     owner = "crev-dev";
     repo = "cargo-crev";
     rev = "v${version}";
-    sha256 = "1ccwa44hpmpd57ff6w02rvrs63wxwmgls2i1rn285rxypmbysrp0";
+    sha256 = "sha256-/TROCaguzIdXnkQ4BpVR1W14ppGODGQ0MQAjJExMGVw=";
   };
 
-  cargoSha256 = "1sffivpgrn4my57pcrg46b2yg6fmhxj61d2sqvg60fjljrg595zn";
+  cargoSha256 = "sha256-3uIf6vyeDeww8+dqrzOG4J/T9QbXAnKQKXRbeujeqSo=";
 
   nativeBuildInputs = [ perl pkg-config ];
 
-  buildInputs = [ openssl ] ++ stdenv.lib.optionals stdenv.isDarwin [ Security libiconv curl ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security libiconv curl ];
 
   meta = with lib; {
     description = "A cryptographically verifiable code review system for the cargo (Rust) package manager";

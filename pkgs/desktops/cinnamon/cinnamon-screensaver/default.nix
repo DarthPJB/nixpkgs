@@ -11,18 +11,10 @@
 , intltool
 , libxslt
 , gtk3
-, libnotify
-, libxkbfile
-, cinnamon-menus
 , libgnomekbd
-, libxklavier
-, networkmanager
-, libwacom
 , gnome3
 , libtool
 , wrapGAppsHook
-, tzdata
-, glibc
 , gobject-introspection
 , python3
 , pam
@@ -82,7 +74,7 @@ stdenv.mkDerivation rec {
     cairo
     cinnamon-desktop
     cinnamon-common
-    gnome3.libgnomekbd
+    libgnomekbd
     gnome3.caribou
 
     # things

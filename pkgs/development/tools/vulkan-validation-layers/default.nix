@@ -8,7 +8,7 @@
 , vulkan-headers
 , vulkan-loader
 , glslang
-, pkgconfig
+, pkg-config
 , xlibsWrapper
 , libxcb
 , libXrandr
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    pkgconfig
+    pkg-config
     cmake
     python3
   ];
@@ -85,11 +85,6 @@ stdenv.mkDerivation rec {
     "-DSPIRV_HEADERS_INSTALL_DIR=${localSpirvHeaders}"
     "-DBUILD_LAYER_SUPPORT_FILES=ON"
   ];
-
-  # Help vulkan-loader find the validation layers
-  setupHook = writeText "setup-hook" ''
-    export XDG_DATA_DIRS=@out@/share:$XDG_DATA_DIRS
-  '';
 
   # Include absolute paths to layer libraries in their associated
   # layer definition json files.
